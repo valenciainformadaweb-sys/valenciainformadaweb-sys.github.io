@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Demo HTML + CSS Responsive (Flexbox + Grid)</title>
+
+  <style>
+    /* =========================
+       1) Variables y base
+       ========================= */
+    :root{
+      --bg: #0b1220;
+      --panel: #111a2e;
+      --text: #e8eefc;
+      --muted: #b7c3e6;
+      --accent: #6ea8fe;
+      --border: rgba(255,255,255,0.12);
+      --radius: 14px;
+      --shadow: 0 10px 25px rgba(0,0,0,0.35);
+      --max: 1100px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 600px at 10% 0%, rgba(110,168,254,0.25), transparent 60%),
+                  radial-gradient(900px 500px at 90% 10%, rgba(110,168,254,0.18), transparent 55%),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .container{
+      width: min(var(--max), 92vw);
+      margin: 0 auto;
+    }
+
+    /* =========================
+       2) Header + Nav (FLEXBOX)
+       ========================= */
+    header{
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(11, общий? 0.65); /* fallback si se edita */
+      background: rgba(11, 18, 32, 0.72);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .topbar{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 0;
+    }
+
+    .brand{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .logo{
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), rgba(110,168,254,0.25));
+      box-shadow: var(--shadow);
+    }
+
+    nav ul{
+      list-style: none;
+      display: flex;              /* FLEX */
+      align-items: center;
+      gap: 14px;
+      margin: 0;
+      padding: 0;
+      flex-wrap: wrap;            /* para que no se rompa en pantallas estrechas */
+    }
+
+    nav a{
+      display: inline-block;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      color: var(--muted);
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease, color 180ms ease;
+    }
+
+    nav a:hover{                  /* HOVER */
+      background: rgba(110,168,254,0.12);
+      border-color: rgba(110,168,254,0.35);
+      color: var(--text);
+      transform: translateY(-1px);
+    }
+
+    /* =========================
+       3) Hero (FLEXBOX)
+       ========================= */
+    .hero{
+      padding: 34px 0 18px;
+    }
+
+    .hero-wrap{
+      display: flex;              /* FLEX */
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+      background: rgba(17,26,46,0.75);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero h1{
+      margin: 0 0 8px;
+      font-size: clamp(1.35rem, 2.4vw, 2rem);
+    }
+
+    .hero p{
+      margin: 0 0 14px;
+      color: var(--muted);
+      max-width: 60ch;
+    }
+
+    .actions{
+      display: flex;              /* FLEX */
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn{
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(110,168,254,0.35);
+      background: rgba(110,168,254,0.12);
+      color: var(--text);
+      font-weight: 600;
+      transition: transform 180ms ease, background 180ms ease;
+    }
+
+    .btn:hover{                   /* HOVER */
+      transform: translateY(-2px);
+      background: rgba(110,168,254,0.18);
+    }
+
+    .btn.secondary{
+      border-color: var(--border);
+      background: rgba(255,255,255,0.06);
+      color: var(--muted);
+    }
+
+    .hero-card{
+      min-width: 240px;
+      max-width: 320px;
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
+    }
+
+    .pill{
+      display: inline-block;
+      font-size: 0.85rem;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(110,168,254,0.14);
+      border: 1px solid rgba(110,168,254,0.30);
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    /* =========================
+       4) Sección Cards (GRID)
+       ========================= */
+    main{
+      padding: 18px 0 40px;
+    }
+
+    .section-title{
+      margin: 18px 0 10px;
+      font-size: 1.1rem;
+      color: var(--text);
+    }
+
+    .grid{
+      display: grid;  /* GRID */
+      grid-template-columns: repeat(3, 1fr); /* Escritorio: 3 columnas */
+      gap: 14px;
+    }
+
+    .card{
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(17,26,46,0.75);
+      padding: 16px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.25);
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .card:hover{ /* HOVER en tarjeta */
+      transform: translateY(-3px);
+      border-color: rgba(110,168,254,0.40);
+      background: rgba(17,26,46,0.9);
+    }
+
+    .card h3{
+      margin: 0 0 6px;
+      font-size: 1rem;
+    }
+
+    .card p{
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .tagrow{
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .tag{
+      font-size: 0.8rem;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.05);
+      padding: 4px 8px;
+      border-radius: 999px;
+    }
+
+    /* =========================
+       5) Footer
+       ========================= */
+    footer{
+      border-top: 1px solid var(--border);
+      padding: 18px 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    /* =========================
+       6) RESPONSIVE (MEDIA QUERIES)
+       ========================= */
+
+    /* Tablet: 2 columnas */
+    @media (max-width: 899px){
+      .grid{
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .hero-wrap{
+        align-items: stretch;
+      }
+    }
+
+    /* Móvil: 1 columna + nav apilado + hero en columna */
+    @media (max-width: 599px){
+      .topbar{
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      nav ul{
+        justify-content: center;
+      }
+
+      .hero-wrap{
+        flex-direction: column; /* Flex cambia a columna */
+      }
+
+      .hero-card{
+        max-width: none;
+      }
+
+      .grid{
+        grid-template-columns: 1fr; /* 1 columna */
+      }
+    }
+
+    /* Extra: accesibilidad (opcional) */
+    @media (prefers-reduced-motion: reduce){
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <span>MiniDemo Responsive</span>
+      </div>
+
+      <nav aria-label="Navegación principal">
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#bloques">Bloques</a></li>
+          <li><a href="#practica">Práctica</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section id="inicio" class="hero">
+    <div class="container hero-wrap">
+      <div>
+        <h1>HTML + CSS: Flexbox, Grid y Responsive en una sola página</h1>
+        <p>
+          Esta demo sirve para repasar estructura semántica, layouts modernos e introducir media queries.
+          Redimensiona la ventana para ver cómo cambian el menú, el hero y las cards.
+        </p>
+
+        <div class="actions">
+          <a class="btn" href="#bloques">Ver cards (Grid)</a>
+          <a class="btn secondary" href="#practica">Ir a práctica</a>
+        </div>
+      </div>
+
+      <aside class="hero-card" aria-label="Resumen de conceptos">
+        <span class="pill">Conceptos</span>
+        <ul style="margin:0; padding-left: 18px; color: var(--muted);">
+          <li>Nav con Flexbox</li>
+          <li>Rejilla con Grid</li>
+          <li>:hover + transiciones</li>
+          <li>@media (600px / 900px)</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <main class="container">
+    <h2 id="bloques" class="section-title">Bloques (Grid de tarjetas)</h2>
+
+    <section class="grid" aria-label="Tarjetas">
+      <article class="card">
+        <h3>Flexbox</h3>
+        <p>Útil para alinear elementos en una dimensión: filas o columnas (nav, botones, etc.).</p>
+        <div class="tagrow">
+          <span class="tag">display:flex</span>
+          <span class="tag">gap</span>
+          <span class="tag">wrap</span>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>Grid</h3>
+        <p>Ideal para layouts en dos dimensiones: filas y columnas (tarjetas, galerías, dashboards).</p>
+        <div class="tagrow">
+          <span class="tag">display:grid</span>
+          <span class="tag">repeat()</span>
+          <span class="tag">fr</span>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>Hover</h3>
+        <p>Microinteracciones: feedback visual al usuario (botones y tarjetas).</p>
+        <div class="tagrow">
+          <span class="tag">:hover</span>
+          <span class="tag">transition</span>
+          <span class="tag">transform</span>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>Responsive</h3>
+        <p>Adaptación por puntos de ruptura: móvil (1 col), tablet (2 col), escritorio (3 col).</p>
+        <div class="tagrow">
+          <span class="tag">@media</span>
+          <span class="tag">breakpoints</span>
+          <span class="tag">mobile-first</span>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>Accesibilidad</h3>
+        <p>Semántica, contrastes y reducir animación si el usuario lo solicita.</p>
+        <div class="tagrow">
+          <span class="tag">aria-label</span>
+          <span class="tag">semántica</span>
+          <span class="tag">prefers-reduced-motion</span>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>Buenas prácticas</h3>
+        <p>Variables CSS, contenedor central, tamaños fluidos y estilos reutilizables.</p>
+        <div class="tagrow">
+          <span class="tag">:root</span>
+          <span class="tag">clamp()</span>
+          <span class="tag">componentes</span>
+        </div>
+      </article>
+    </section>
+
+    <h2 id="practica" class="section-title">Práctica guiada (10 min)</h2>
+    <ol style="color: var(--muted); padding-left: 18px;">
+      <li>Cambia el breakpoint de móvil de <code>599px</code> a <code>640px</code> y observa el efecto.</li>
+      <li>Modifica la rejilla de escritorio a 4 columnas: <code>repeat(4, 1fr)</code>.</li>
+      <li>Añade una nueva tarjeta y comprueba cómo se recoloca automáticamente.</li>
+      <li>Personaliza el hover (por ejemplo, aumentando la elevación o cambiando el borde).</li>
+    </ol>
+  </main>
+
+  <footer id="contacto">
+    <div class="container">
+      Pie de página — Demo para repaso e introducción a CSS responsive con Flexbox, Grid, hover y media queries.
+    </div>
+  </footer>
+</body>
+</html>
